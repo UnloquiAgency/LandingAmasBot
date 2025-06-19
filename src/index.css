@@ -1,42 +1,42 @@
 
-@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=Impact&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Montserrat:wght@300;400;500;600;700;800;900&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. */
+/* Premium Design System */
 
 @layer base {
   :root {
-    --background: 0 0% 0%;
-    --foreground: 60 100% 50%;
+    --background: 13 13 13;
+    --foreground: 248 248 248;
 
-    --card: 0 0% 6.7%;
-    --card-foreground: 60 100% 50%;
+    --card: 26 26 26;
+    --card-foreground: 248 248 248;
 
-    --popover: 0 0% 0%;
-    --popover-foreground: 60 100% 50%;
+    --popover: 13 13 13;
+    --popover-foreground: 248 248 248;
 
-    --primary: 60 100% 50%;
-    --primary-foreground: 0 0% 0%;
+    --primary: 255 222 89;
+    --primary-foreground: 13 13 13;
 
-    --secondary: 0 0% 6.7%;
-    --secondary-foreground: 60 100% 50%;
+    --secondary: 26 26 26;
+    --secondary-foreground: 248 248 248;
 
-    --muted: 0 0% 6.7%;
-    --muted-foreground: 0 0% 70.5%;
+    --muted: 26 26 26;
+    --muted-foreground: 74 74 74;
 
-    --accent: 0 0% 6.7%;
-    --accent-foreground: 60 100% 50%;
+    --accent: 26 26 26;
+    --accent-foreground: 255 222 89;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 0 0% 14.9%;
-    --input: 0 0% 14.9%;
-    --ring: 60 100% 50%;
+    --border: 26 26 26;
+    --input: 26 26 26;
+    --ring: 255 222 89;
 
-    --radius: 0.5rem;
+    --radius: 0.75rem;
   }
 }
 
@@ -46,8 +46,9 @@
   }
 
   body {
-    @apply bg-gym-black text-neon-yellow font-gym;
+    @apply bg-carbon text-warm-white font-premium antialiased;
     overflow-x: hidden;
+    line-height: 1.6;
   }
 
   html {
@@ -56,20 +57,23 @@
 }
 
 @layer components {
-  .cta-button {
-    @apply bg-neon-yellow text-gym-black font-bold py-4 px-8 rounded-none uppercase tracking-wider text-lg hover:bg-yellow-400 transition-all duration-300 transform hover:scale-105 cursor-pointer border-2 border-neon-yellow;
+  .btn-primary {
+    @apply bg-soft-yellow text-carbon font-semibold py-4 px-8 rounded-lg hover:bg-yellow-400 transition-all duration-300 transform hover:scale-[1.02] cursor-pointer border border-soft-yellow;
   }
   
-  .cta-button-secondary {
-    @apply bg-transparent text-neon-yellow font-bold py-3 px-6 rounded-none uppercase tracking-wider text-base border-2 border-neon-yellow hover:bg-neon-yellow hover:text-gym-black transition-all duration-300 cursor-pointer;
+  .btn-secondary {
+    @apply bg-transparent text-soft-yellow font-semibold py-3 px-6 rounded-lg border border-soft-yellow hover:bg-soft-yellow hover:text-carbon transition-all duration-300 cursor-pointer;
   }
   
-  .neon-glow {
-    @apply shadow-[0_0_10px_theme(colors.neon-yellow),0_0_20px_theme(colors.neon-yellow),0_0_30px_theme(colors.neon-yellow)];
+  .premium-glow {
+    @apply shadow-[0_0_20px_rgba(255,222,89,0.3)];
   }
   
-  .diagonal-stripe {
-    background: linear-gradient(45deg, #FFFF00 25%, transparent 25%, transparent 75%, #FFFF00 75%);
-    background-size: 20px 20px;
+  .section-padding {
+    @apply py-20 lg:py-32;
+  }
+  
+  .container-premium {
+    @apply max-w-7xl mx-auto px-6 lg:px-8;
   }
 }
