@@ -94,11 +94,12 @@ const Index = () => {
       {/* HERO SECTION */}
       <section className="relative min-h-screen flex items-center justify-center bg-gradient-to-b from-carbon to-graphite">
         <div 
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-20"
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-30"
           style={{
-            backgroundImage: "url('https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=1920&h=1080&fit=crop')"
+            backgroundImage: "url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1920&h=1080&fit=crop&q=80')"
           }}
         />
+        <div className="absolute inset-0 bg-gradient-to-r from-carbon/80 via-carbon/60 to-transparent"></div>
         <div className="relative z-10 text-center container-premium animate-fade-in">
           <h1 className="text-6xl md:text-8xl font-black mb-8 leading-tight tracking-tight">
             Arranca hoy con<br />
