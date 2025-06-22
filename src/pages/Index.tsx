@@ -1,6 +1,6 @@
 
 import { useState, useEffect } from 'react';
-import { ChevronLeft, ChevronRight, MessageCircle, Clock, Star, Brain, Shield, Zap, Heart, ArrowRight, FlaskConical, Award, Users } from 'lucide-react';
+import { ChevronLeft, ChevronRight, MessageCircle, Clock, Star, Brain, Shield, Zap, Heart, ArrowRight, FlaskConical, Award, Users, X, Send } from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 
@@ -13,6 +13,10 @@ const Index = () => {
   });
   const [chatQuestions, setChatQuestions] = useState(5);
   const [showChatModal, setShowChatModal] = useState(false);
+  const [chatMessages, setChatMessages] = useState([
+    { type: 'bot', message: '¡Hola! Soy AmasBot, tu asistente especializado en adaptógenos. ¿En qué puedo ayudarte hoy?' }
+  ]);
+  const [inputMessage, setInputMessage] = useState('');
 
   // Countdown timer
   useEffect(() => {
@@ -31,6 +35,17 @@ const Index = () => {
 
     return () => clearInterval(timer);
   }, []);
+
+  const handleSendMessage = () => {
+    if (inputMessage.trim() && chatQuestions > 0) {
+      setChatMessages(prev => [...prev, 
+        { type: 'user', message: inputMessage },
+        { type: 'bot', message: 'Gracias por tu pregunta. Basándome en tu perfil, te recomiendo comenzar con Rhodiola para el estrés y Cordyceps para el rendimiento. ¿Practicas algún deporte específico?' }
+      ]);
+      setChatQuestions(prev => prev - 1);
+      setInputMessage('');
+    }
+  };
 
   const products = [
     {
@@ -151,52 +166,107 @@ const Index = () => {
     <div className="min-h-screen bg-carbon text-warm-white font-premium overflow-x-hidden antialiased">
       
       {/* HERO SECTION */}
-      <section className="relative min-h-screen flex items-center justify-center bg-gradient-to-b from-carbon to-graphite">
+      <section className="relative min-h-screen flex items-center justify-center">
         <div 
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-40"
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-60"
           style={{
-            backgroundImage: "url('https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=1920&h=1080&fit=crop&q=80')"
+            backgroundImage: "url('/lovable-uploads/c024332f-c716-4a99-9f96-0249ee604e1c.png')"
           }}
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-carbon/90 via-carbon/70 to-transparent"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-carbon/95 via-carbon/80 to-carbon/70"></div>
         <div className="relative z-10 text-center container-premium animate-fade-in">
-          <h1 className="text-6xl md:text-8xl font-black mb-8 leading-tight tracking-tight">
-            Arranca hoy con<br />
-            <span className="text-soft-yellow">Adaptógenos A+</span>
-          </h1>
+          <div className="flex items-center justify-center mb-8">
+            <img 
+              src="/lovable-uploads/21388e86-11e0-4546-982e-809742308e1e.png" 
+              alt="AmasFungis Logo" 
+              className="h-16 w-auto mr-4"
+            />
+            <h1 className="text-6xl md:text-8xl font-black leading-tight tracking-tight">
+              Adaptógenos A+
+            </h1>
+          </div>
           <p className="text-xl md:text-2xl font-medium mb-12 max-w-4xl mx-auto text-gray-300 leading-relaxed">
             Claridad mental, energía prolongada y foco diario.<br />
             <span className="text-soft-yellow">Suplementos naturales con respaldo científico.</span>
           </p>
           
           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-16">
-            <button className="btn-primary text-lg">
-              <ArrowRight className="mr-2" size={20} />
-              Ver productos
+            <button className="group relative bg-gradient-to-r from-soft-yellow to-yellow-400 text-carbon font-bold py-4 px-10 rounded-xl hover:from-yellow-400 hover:to-soft-yellow transition-all duration-300 transform hover:scale-105 shadow-2xl shadow-soft-yellow/20">
+              <div className="flex items-center">
+                <ArrowRight className="mr-3 group-hover:translate-x-1 transition-transform duration-300" size={20} />
+                <span className="text-lg">Ver Productos Premium</span>
+              </div>
             </button>
-            <button 
-              className="btn-secondary text-lg"
-              onClick={() => setShowChatModal(true)}
-            >
-              <MessageCircle className="mr-2" size={20} />
-              Hablar con nuestro Coach IA
-            </button>
-          </div>
-          
-          {/* Scientific Authority */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center max-w-4xl mx-auto">
-            <div className="bg-graphite/50 backdrop-blur-sm border border-soft-yellow/20 p-6 rounded-lg">
-              <div className="text-3xl font-bold text-soft-yellow mb-2">300+</div>
-              <div className="text-sm text-gray-400 uppercase tracking-wide">Estudios Científicos</div>
-            </div>
-            <div className="bg-graphite/50 backdrop-blur-sm border border-soft-yellow/20 p-6 rounded-lg">
-              <div className="text-3xl font-bold text-soft-yellow mb-2">15K+</div>
-              <div className="text-sm text-gray-400 uppercase tracking-wide">Atletas Activos</div>
-            </div>
-            <div className="bg-graphite/50 backdrop-blur-sm border border-soft-yellow/20 p-6 rounded-lg">
-              <div className="text-3xl font-bold text-soft-yellow mb-2">4.9★</div>
-              <div className="text-sm text-gray-400 uppercase tracking-wide">Rating Promedio</div>
-            </div>
+            
+            <Dialog open={showChatModal} onOpenChange={setShowChatModal}>
+              <DialogTrigger asChild>
+                <button className="group relative bg-transparent border-2 border-soft-yellow text-soft-yellow font-bold py-4 px-10 rounded-xl hover:bg-soft-yellow hover:text-carbon transition-all duration-300 transform hover:scale-105 shadow-lg">
+                  <div className="flex items-center">
+                    <MessageCircle className="mr-3 group-hover:rotate-12 transition-transform duration-300" size={20} />
+                    <span className="text-lg">Hablar con AmasBot</span>
+                  </div>
+                </button>
+              </DialogTrigger>
+              <DialogContent className="bg-carbon border-2 border-soft-yellow/30 text-warm-white max-w-md sm:max-w-lg max-h-[80vh] p-0 rounded-2xl overflow-hidden">
+                <div className="bg-gradient-to-r from-soft-yellow/20 to-soft-yellow/10 p-6 border-b border-soft-yellow/20">
+                  <DialogTitle className="text-2xl font-bold text-center text-soft-yellow flex items-center justify-center">
+                    <Brain className="mr-3" size={28} />
+                    AmasBot IA
+                  </DialogTitle>
+                  <p className="text-center text-gray-300 mt-2">
+                    {chatQuestions} preguntas gratuitas restantes
+                  </p>
+                </div>
+                
+                <div className="flex flex-col h-96">
+                  <div className="flex-1 overflow-y-auto p-4 space-y-4">
+                    {chatMessages.map((msg, index) => (
+                      <div key={index} className={`flex ${msg.type === 'user' ? 'justify-end' : 'justify-start'}`}>
+                        <div className={`max-w-xs px-4 py-3 rounded-2xl ${
+                          msg.type === 'user' 
+                            ? 'bg-soft-yellow text-carbon ml-4' 
+                            : 'bg-graphite border border-soft-yellow/20 text-gray-100 mr-4'
+                        }`}>
+                          <p className="text-sm">{msg.message}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                  
+                  <div className="p-4 border-t border-soft-yellow/20 bg-graphite/50">
+                    <div className="flex gap-2">
+                      <input
+                        type="text"
+                        value={inputMessage}
+                        onChange={(e) => setInputMessage(e.target.value)}
+                        onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
+                        placeholder={chatQuestions > 0 ? "Escribe tu pregunta..." : "Regístrate para más preguntas"}
+                        disabled={chatQuestions === 0}
+                        className="flex-1 bg-carbon border border-soft-yellow/30 rounded-xl px-4 py-3 text-gray-100 placeholder-gray-500 focus:outline-none focus:border-soft-yellow/60 disabled:opacity-50"
+                      />
+                      <button
+                        onClick={handleSendMessage}
+                        disabled={chatQuestions === 0 || !inputMessage.trim()}
+                        className="bg-soft-yellow text-carbon p-3 rounded-xl hover:bg-yellow-400 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                      >
+                        <Send size={18} />
+                      </button>
+                    </div>
+                    
+                    {chatQuestions === 0 && (
+                      <div className="mt-4 p-3 bg-soft-yellow/10 border border-soft-yellow/30 rounded-lg text-center">
+                        <p className="text-soft-yellow font-medium text-sm">
+                          ¡Regístrate para preguntas ilimitadas + 10% OFF!
+                        </p>
+                        <button className="mt-2 bg-soft-yellow text-carbon px-4 py-2 rounded-lg font-medium text-sm hover:bg-yellow-400 transition-colors">
+                          Registrarse Ahora
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </DialogContent>
+            </Dialog>
           </div>
         </div>
       </section>
@@ -325,11 +395,11 @@ const Index = () => {
       </section>
 
       {/* STUDIES SECTION */}
-      <section className="section-padding bg-gradient-to-b from-carbon to-blue-950/20">
+      <section className="section-padding bg-gradient-to-b from-carbon via-green-950/30 to-carbon">
         <div className="container-premium">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-6xl font-bold mb-6">
-              Respaldo <span className="text-blue-400">Científico</span>
+              Respaldo <span className="text-green-400">Científico</span>
             </h2>
             <p className="text-lg text-gray-400 max-w-2xl mx-auto">
               Investigación clínica que valida la eficacia de nuestras fórmulas
@@ -338,34 +408,40 @@ const Index = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {studies.map((study, index) => (
-              <div key={index} className="bg-gradient-to-br from-blue-950/30 to-carbon/80 backdrop-blur-sm border border-blue-400/20 p-8 rounded-xl hover:border-blue-400/40 transition-all duration-300">
-                <div className="flex items-center mb-6">
-                  <FlaskConical className="w-8 h-8 text-blue-400 mr-3" />
-                  <div className="text-blue-400 font-semibold text-sm">ESTUDIO CLÍNICO</div>
-                </div>
-                
-                <h3 className="text-xl font-bold mb-4 text-white">
-                  {study.title}
-                </h3>
-                
-                <div className="space-y-3 mb-6">
-                  <div className="flex justify-between items-center">
-                    <span className="text-gray-400 text-sm">Revista:</span>
-                    <span className="text-blue-300 text-sm font-medium">{study.journal}</span>
+              <div key={index} className="relative group">
+                <div className="absolute inset-0 bg-gradient-to-br from-green-500/20 to-green-600/20 rounded-2xl blur-xl group-hover:blur-2xl transition-all duration-300 opacity-60"></div>
+                <div className="relative bg-gradient-to-br from-green-950/60 to-carbon/90 backdrop-blur-sm border border-green-400/30 p-8 rounded-2xl hover:border-green-400/60 transition-all duration-300 hover:transform hover:scale-105">
+                  <div className="flex items-center mb-6">
+                    <div className="bg-green-400/20 p-3 rounded-xl mr-4">
+                      <FlaskConical className="w-6 h-6 text-green-400" />
+                    </div>
+                    <div className="text-green-400 font-bold text-sm tracking-wide">ESTUDIO CLÍNICO</div>
                   </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-gray-400 text-sm">Año:</span>
-                    <span className="text-blue-300 text-sm font-medium">{study.year}</span>
+                  
+                  <h3 className="text-xl font-bold mb-6 text-white leading-tight">
+                    {study.title}
+                  </h3>
+                  
+                  <div className="space-y-4 mb-6">
+                    <div className="flex justify-between items-center p-3 bg-green-950/30 rounded-lg border border-green-400/20">
+                      <span className="text-gray-400 text-sm font-medium">Revista:</span>
+                      <span className="text-green-300 text-sm font-semibold">{study.journal}</span>
+                    </div>
+                    <div className="flex justify-between items-center p-3 bg-green-950/30 rounded-lg border border-green-400/20">
+                      <span className="text-gray-400 text-sm font-medium">Año:</span>
+                      <span className="text-green-300 text-sm font-semibold">{study.year}</span>
+                    </div>
+                    <div className="flex justify-between items-center p-3 bg-green-950/30 rounded-lg border border-green-400/20">
+                      <span className="text-gray-400 text-sm font-medium">Participantes:</span>
+                      <span className="text-green-300 text-sm font-semibold">{study.participants}</span>
+                    </div>
                   </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-gray-400 text-sm">Participantes:</span>
-                    <span className="text-blue-300 text-sm font-medium">{study.participants}</span>
-                  </div>
-                </div>
-                
-                <div className="bg-blue-400/10 border border-blue-400/30 p-4 rounded-lg">
-                  <div className="text-blue-400 font-bold text-lg text-center">
-                    {study.result}
+                  
+                  <div className="bg-gradient-to-r from-green-400/20 to-green-500/20 border border-green-400/40 p-6 rounded-xl text-center">
+                    <div className="text-green-400 font-bold text-xl mb-2">
+                      {study.result}
+                    </div>
+                    <div className="text-green-300 text-sm font-medium">Resultado comprobado</div>
                   </div>
                 </div>
               </div>
@@ -423,51 +499,6 @@ const Index = () => {
                   Iniciar Chat
                 </button>
               </DialogTrigger>
-              <DialogContent className="bg-graphite border-2 border-soft-yellow/30 text-warm-white max-w-2xl">
-                <DialogHeader>
-                  <DialogTitle className="text-2xl font-bold text-center mb-6 text-soft-yellow">
-                    AmasBot - Asistente IA
-                  </DialogTitle>
-                </DialogHeader>
-                <div className="space-y-6">
-                  <div className="bg-carbon/80 p-6 border border-soft-yellow/20 rounded-lg">
-                    <h3 className="text-lg font-semibold mb-4 text-soft-yellow">
-                      Tienes {chatQuestions} preguntas gratis
-                    </h3>
-                    <p className="text-gray-300 mb-4">
-                      Nuestro asistente IA especializado en adaptógenos te ayudará con:
-                    </p>
-                    <ul className="text-left space-y-2 text-gray-300">
-                      <li className="flex items-center"><div className="w-2 h-2 bg-soft-yellow rounded-full mr-3"></div>Plan personalizado según tu deporte</li>
-                      <li className="flex items-center"><div className="w-2 h-2 bg-soft-yellow rounded-full mr-3"></div>Dosis exactas para máximos resultados</li>
-                      <li className="flex items-center"><div className="w-2 h-2 bg-soft-yellow rounded-full mr-3"></div>Timing perfecto de suplementación</li>
-                      <li className="flex items-center"><div className="w-2 h-2 bg-soft-yellow rounded-full mr-3"></div>Stacks potentes para objetivos específicos</li>
-                    </ul>
-                  </div>
-                  
-                  <div className="bg-soft-yellow/10 border border-soft-yellow/30 text-soft-yellow p-4 rounded-lg font-medium text-center">
-                    Regístrate para respuestas ilimitadas + 10% OFF
-                  </div>
-                  
-                  <div className="flex gap-4">
-                    <button 
-                      className="flex-1 btn-secondary"
-                      onClick={() => {
-                        setChatQuestions(prev => Math.max(0, prev - 1));
-                        setShowChatModal(false);
-                      }}
-                    >
-                      USAR PREGUNTA GRATIS
-                    </button>
-                    <button 
-                      className="flex-1 btn-primary"
-                      onClick={() => setShowChatModal(false)}
-                    >
-                      REGISTRARSE + 10% OFF
-                    </button>
-                  </div>
-                </div>
-              </DialogContent>
             </Dialog>
           </div>
         </div>
