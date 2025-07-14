@@ -941,7 +941,7 @@ const Index = () => {
             <p className="text-gray-500">© 2024 AmasFungis. Todos los derechos reservados.</p>
             <div className="mt-2 flex flex-col items-center justify-center">
               <span style={{fontSize:'0.98rem', fontWeight:600, color:'#bdbdbd', letterSpacing:'0.01em'}}>
-                Powered by <a href="https://ksai.agency/" target="_blank" rel="noopener noreferrer" style={{color:'#22e584', fontWeight:700, textDecoration:'none', marginLeft:4, marginRight:4}}>KS AI Agency</a>
+                Powered by <a href="https://unloquia.agency/" target="_blank" rel="noopener noreferrer" style={{color:'#22e584', fontWeight:700, textDecoration:'none', marginLeft:4, marginRight:4}}>Unloquia Agency</a>
                 — Landing Pages, AI Chatbots & Automation para negocios modernos.
               </span>
               <button onClick={() => setShowTerms(true)} className="text-xs text-gray-400 hover:text-soft-yellow underline mt-2" style={{fontSize:'0.82rem', fontWeight:500}}>Términos y Condiciones</button>
@@ -980,7 +980,7 @@ const Index = () => {
                         <path d="M11.3 1.5L3.5 11.5C3.2 11.9 3.5 12.5 4 12.5H9.1L8.1 18.1C8 18.7 8.7 19.1 9.2 18.7L17 8.7C17.3 8.3 17 7.7 16.5 7.7H11.9L12.9 2.1C13 1.5 12.3 1.1 11.8 1.5H11.3Z" fill="#22e584"/>
                       </svg>
                     </span>
-                    Powered by KS AI Agency
+                    Powered by Unloquia Agency
                   </a>
                 </div>
               </div>
